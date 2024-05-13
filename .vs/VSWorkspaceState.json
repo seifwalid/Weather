@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Weather",
+    "\\Weather\\Controllers",
+    "\\Weather\\Dtos",
+    "\\Weather\\Dtos\\User",
+    "\\Weather\\Mappers"
+  ],
+  "SelectedNode": "\\Weather.sln",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,10 +1,18 @@
-﻿namespace Weather.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class User
+namespace Weather.Model;
+
+public class Userr
 {
-    public string UserId { get; set; }
-    public string UserName { get; set; }
-
-    public PermissibleLimits UserPermissibleLimits { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int UserId { get; set; } 
+    public string UserName { get; set; } = String.Empty;
+    public int Age { get; set; }
+    public string Gender { get; set; } = String.Empty;
+    public string Email { get; set; } = String.Empty;
+    public string Password { get; set; } = String.Empty;
+    public PermissibleLimits? UserPermissibleLimits { get; set; } = new PermissibleLimits();
     
 }

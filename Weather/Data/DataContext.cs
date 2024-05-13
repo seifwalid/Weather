@@ -10,10 +10,12 @@ public class DataContext: DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().HasKey(u => u.UserId);
+        modelBuilder.Entity<Userr>().HasKey(u => u.UserId);
   
     }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Userr> Users { get; set; }
     public DbSet<PermissibleLimits>PermissibleLimits { get; set; }
+    public DbSet<Alert>Alerts { get; set; }
+
     
 }

@@ -7,16 +7,24 @@
       "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\mappers\\usermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\mappers\\usermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\model\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\model\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\dtos\\alertdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\dtos\\alertdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\dtos\\user\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\dtos\\user\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\dtos\\user\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\dtos\\user\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|c:\\users\\farah\\desktop\\weather\\weather\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46CE86C1-CC11-4F27-A62E-F2E3A2269CA2}|Weather\\Weather.csproj|solutionrelative:weather\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,54 +50,80 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Dtos\\User\\UserDto.cs",
+              "RelativeDocumentMoniker": "Weather\\Dtos\\User\\UserDto.cs",
+              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Dtos\\User\\UserDto.cs",
+              "RelativeToolTip": "Weather\\Dtos\\User\\UserDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T02:34:57.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Dtos\\User\\LoginDto.cs",
+              "RelativeDocumentMoniker": "Weather\\Dtos\\User\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Dtos\\User\\LoginDto.cs",
+              "RelativeToolTip": "Weather\\Dtos\\User\\LoginDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T02:34:48.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Interfaces\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "Weather\\Interfaces\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Interfaces\\IUserRepository.cs",
+              "RelativeToolTip": "Weather\\Interfaces\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T02:28:02.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserMappers.cs",
+              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Mappers\\UserMappers.cs",
+              "RelativeDocumentMoniker": "Weather\\Mappers\\UserMappers.cs",
+              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Mappers\\UserMappers.cs",
+              "RelativeToolTip": "Weather\\Mappers\\UserMappers.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAwDoAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T00:51:49.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Weather\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Controllers\\UserController.cs",
               "RelativeToolTip": "Weather\\Controllers\\UserController.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAuwEEAAAAuAAAA",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAUwGsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T23:49:46.268Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AlertController.cs",
-              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Controllers\\AlertController.cs",
-              "RelativeDocumentMoniker": "Weather\\Controllers\\AlertController.cs",
-              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Controllers\\AlertController.cs",
-              "RelativeToolTip": "Weather\\Controllers\\AlertController.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAQwBsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T23:40:27.095Z",
+              "WhenOpened": "2024-05-14T00:35:08.368Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Alert.cs",
-              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Model\\Alert.cs",
-              "RelativeDocumentMoniker": "Weather\\Model\\Alert.cs",
-              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Model\\Alert.cs",
-              "RelativeToolTip": "Weather\\Model\\Alert.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAxwAgAAAAmAAAA",
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Repository\\UserRepository.cs",
+              "RelativeDocumentMoniker": "Weather\\Repository\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Repository\\UserRepository.cs",
+              "RelativeToolTip": "Weather\\Repository\\UserRepository.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAADwvykAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T23:40:20.225Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AlertDto.cs",
-              "DocumentMoniker": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Dtos\\AlertDto.cs",
-              "RelativeDocumentMoniker": "Weather\\Dtos\\AlertDto.cs",
-              "ToolTip": "C:\\Users\\farah\\Desktop\\Weather\\Weather\\Dtos\\AlertDto.cs",
-              "RelativeToolTip": "Weather\\Dtos\\AlertDto.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T23:40:14.585Z",
+              "WhenOpened": "2024-05-14T00:31:23.368Z",
               "EditorCaption": ""
             }
           ]

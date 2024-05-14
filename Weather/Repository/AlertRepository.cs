@@ -1,6 +1,8 @@
-﻿namespace Weather.Repository
+﻿using Weather.Interfaces;
+
+namespace Weather.Repository
 {
-    public class AlertRepository
+    public class AlertRepository:IAlertRepository
     {
     }
 }

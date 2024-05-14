@@ -1,4 +1,5 @@
-﻿using Weather.Dtos.User;
+﻿using System.Net.NetworkInformation;
+using Weather.Dtos.User;
 using Weather.Model;
 
 namespace Weather.Mappers
@@ -44,6 +45,18 @@ namespace Weather.Mappers
 
         //    };
         //}
+
+        public static Userr ToUserFromUpdateDTO(this UpdateUserDto userDto)
+        {
+            return new Userr
+            {
+                UserName = userDto.UserName,
+                Age = userDto.Age,
+                Password = userDto.Password
+            };
+        }
+
+        
 
        
 

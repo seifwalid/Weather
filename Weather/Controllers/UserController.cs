@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Weather.Data;
 using Weather.Dtos.User;
+using Weather.Interfaces;
 using Weather.Mappers;
 using Weather.Model;
 
@@ -11,16 +14,27 @@ namespace Weather.Controllers
     public class UserController:ControllerBase
     {
         private readonly DataContext _context;
-        public UserController(DataContext context)
+        private readonly IUserRepository _userRepo;
+        private readonly ILimitRepository _limitRepo;
+        public UserController(DataContext context, ILimitRepository limitRepo,IUserRepository userRepo)
         {
             _context = context;
+            _limitRepo = limitRepo;
+            _userRepo = userRepo;
+
         }
 
         //View details of a user 
         [HttpGet("{uid}")]
-        public IActionResult GetById([FromRoute] int uid)
+        public async Task<IActionResult> GetById([FromRoute] int uid)
         {
-            var user = _context.Users.Find(uid);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userRepo.GetUserByIdAsync(uid);
+
             if(user==null)
             {
                 return NotFound();
@@ -29,14 +43,39 @@ namespace Weather.Controllers
             return Ok(user.ToUserDto());
         }
 
+        //Get all limits of a user
+        [HttpGet("{uid}/limits")]
+        public async Task<IActionResult> GetLimitsByUserId([FromRoute] int uid)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var limits=await _userRepo.GetLimitsByUserId(uid);
+            if (limits == null)
+            {
+                return NotFound();
+
+            }
+            return Ok(limits.ToLimitDto());
+
+
+        }
 
         //Register user 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateUserRequestDto userDto)
+        [Route("/register")]
+        public async Task<IActionResult> Create([FromBody] CreateUserRequestDto userDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             var userModel = userDto.ToUserFromCreateUserDTO();
-            _context.Users.Add(userModel);
-            _context.SaveChanges();
+            await _userRepo.CreateUserAsync(userModel);
             return Ok(userModel);
         }
 
@@ -51,24 +90,42 @@ namespace Weather.Controllers
         //    return CreatedAtAction(nameof(GetById), new { id = userModel.UserId },userModel.ToUserDto());
         //}
 
+        //Login
+        [HttpPost]
+        [Route("/login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userRepo.GetUserByNameandPassAsync(loginDto.UserName,loginDto.Password);
+            if(user== null)
+            {
+                return NotFound("No user exists with these credentials!");
+            }
+
+            return Ok(user.ToUserDto());
+        }
+
 
         //update user personal details
         [HttpPut]
         [Route("{uid}")]
-        public IActionResult Update([FromRoute] int uid, [FromBody] UpdateUserDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int uid, [FromBody] UpdateUserDto updateDto)
         {
-            var userModel = _context.Users.FirstOrDefault(u => u.UserId == uid);
-            if (userModel == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
-            userModel.UserName = updateDto.UserName;
-            userModel.Email = updateDto.Email;
-            userModel.Age = updateDto.Age;
-            userModel.Gender = updateDto.Gender;
-            userModel.Password = updateDto.Password;
-            _context.SaveChanges();
-            return Ok(userModel.ToUserDto());
+            var existingUser = await _userRepo.UpdateUserAsync(uid, updateDto.ToUserFromUpdateDTO());
+            if (existingUser == null)
+            {
+                return NotFound("No user found!");
+            }
+            
+            return Ok(existingUser.ToUserDto());
         }
 
         

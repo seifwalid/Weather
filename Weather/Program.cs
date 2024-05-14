@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Weather.Data;
+using Weather.Interfaces;
+using Weather.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddScoped<ILimitRepository, LimitRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

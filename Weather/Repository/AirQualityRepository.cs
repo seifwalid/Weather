@@ -21,9 +21,9 @@ namespace Weather.Repository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<dynamic> GetAirQualityDataAsync()
+        public async Task<CurrentAirQuality> GetAirQualityDataAsync()
         {
-            var url = $"https://air-quality-api.open-meteo.com/v1/air-quality?current=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&past_days=3&lat={ApplicationConstants.Latitude}&lon={ApplicationConstants.Longitude}";
+            var url = "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&current=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&past_days=3";
 
             try
             {
@@ -35,19 +35,9 @@ namespace Weather.Repository
                 }
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var airQualityData = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                var airQualityApiResponse = JsonConvert.DeserializeObject<AirQualityApiResponse>(responseContent);
 
-                // Check if the 'current' property exists and is not null
-                if (airQualityData?.current == null)
-                {
-                    // Log the error or handle it as needed
-                    return null;
-                }
-
-                // Corrected: Convert airQualityData to a string before printing
-                Console.WriteLine(JsonConvert.SerializeObject(airQualityData));
-
-                return airQualityData.current;
+                return airQualityApiResponse?.Current;
             }
             catch (Exception ex)
             {
@@ -55,5 +45,6 @@ namespace Weather.Repository
                 return null;
             }
         }
+
     }
 }

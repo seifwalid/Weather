@@ -26,6 +26,7 @@ builder.Services.AddScoped<IAirQualityRepository, AirQualityRepository>();
 builder.Services.AddScoped<ILimitRepository, LimitRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+builder.Services.AddScoped<IWeatherRepository,WeatherRepository>();
 
 
 

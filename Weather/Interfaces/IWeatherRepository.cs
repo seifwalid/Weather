@@ -3,9 +3,10 @@ using Weather.Model;
 
 namespace Weather.Interfaces
 {
-    public interface IAirQualityRepository
+    public interface IWeatherRepository
     {
-        Task<CurrentAirQuality> GetAirQualityDataAsync();
+        Task<WeatherData> GetWeatherDataAsync();
         Task CreateAlertAsync(Alert alert);
     }
+
 }

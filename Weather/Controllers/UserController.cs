@@ -18,12 +18,14 @@ namespace Weather.Controllers
         private readonly IUserRepository _userRepo;
         private readonly ILimitRepository _limitRepo;
         private readonly IAirQualityRepository _airQualityRepository;
-        public UserController(DataContext context, ILimitRepository limitRepo,IUserRepository userRepo,IAirQualityRepository airQualityRepository)
+        private readonly IWeatherRepository _weatherRepository;
+        public UserController(DataContext context, ILimitRepository limitRepo,IUserRepository userRepo,IAirQualityRepository airQualityRepository,IWeatherRepository weatherRepository)
         {
             _context = context;
             _limitRepo = limitRepo;
             _userRepo = userRepo;
             _airQualityRepository = airQualityRepository;
+            _weatherRepository = weatherRepository;
 
         }
 
@@ -140,28 +142,49 @@ namespace Weather.Controllers
                 return NotFound();
             }
 
-            var airQualityData = await _airQualityRepository.GetAirQualityDataAsync();
-            Console.WriteLine(JsonConvert.SerializeObject(airQualityData));
-
-            if (airQualityData == null)
+            var currentAirQuality = await _airQualityRepository.GetAirQualityDataAsync();
+            if (currentAirQuality == null)
             {
-                // Handle the case where air quality data couldn't be retrieved
                 return StatusCode(500, "Unable to retrieve air quality data.");
             }
-            // Compare and create alerts
-            CheckAndCreateAlert(user, "PM10", airQualityData.pm10, user.UserPermissibleLimits.MaxPM10);
-            CheckAndCreateAlert(user, "PM2_5", airQualityData.pm2_5, user.UserPermissibleLimits.MaxPM2_5);
-            CheckAndCreateAlert(user, "Carbon Monoxide", airQualityData.carbon_monoxide, user.UserPermissibleLimits.MaxCarbonMonoxide);
-            CheckAndCreateAlert(user, "Nitrogen Dioxide", airQualityData.nitrogen_dioxide, user.UserPermissibleLimits.MaxNitrogenDioxide);
-            CheckAndCreateAlert(user, "Sulphur Dioxide", airQualityData.sulphur_dioxide, user.UserPermissibleLimits.MaxSulphurDioxide);
-            CheckAndCreateAlert(user, "Ozone", airQualityData.ozone, user.UserPermissibleLimits.MaxOzone);
+
+            var airQualityResponse = new AirQualityResponse
+            {
+                Latitude = 52.52,
+                Longitude = 13.41,
+                Timestamp = DateTime.UtcNow,
+                Ozone = CreateAirQualityElement(currentAirQuality.Ozone, user.UserPermissibleLimits.MaxOzone),
+                Pm10 = CreateAirQualityElement(currentAirQuality.Pm10, user.UserPermissibleLimits.MaxPM10),
+                Pm2_5 = CreateAirQualityElement(currentAirQuality.Pm2_5, user.UserPermissibleLimits.MaxPM2_5),
+                CarbonMonoxide = CreateAirQualityElement(currentAirQuality.CarbonMonoxide, user.UserPermissibleLimits.MaxCarbonMonoxide),
+                NitrogenDioxide = CreateAirQualityElement(currentAirQuality.NitrogenDioxide, user.UserPermissibleLimits.MaxNitrogenDioxide),
+                SulphurDioxide = CreateAirQualityElement(currentAirQuality.SulphurDioxide, user.UserPermissibleLimits.MaxSulphurDioxide)
+            };
+
+            await CheckAndCreateAlert(user, "Ozone", currentAirQuality.Ozone, user.UserPermissibleLimits.MaxOzone);
+            await CheckAndCreateAlert(user, "PM10", currentAirQuality.Pm10, user.UserPermissibleLimits.MaxPM10);
+            await CheckAndCreateAlert(user, "PM2_5", currentAirQuality.Pm2_5, user.UserPermissibleLimits.MaxPM2_5);
+            await CheckAndCreateAlert(user, "Carbon Monoxide", currentAirQuality.CarbonMonoxide, user.UserPermissibleLimits.MaxCarbonMonoxide);
+            await CheckAndCreateAlert(user, "Nitrogen Dioxide", currentAirQuality.NitrogenDioxide, user.UserPermissibleLimits.MaxNitrogenDioxide);
+            await CheckAndCreateAlert(user, "Sulphur Dioxide", currentAirQuality.SulphurDioxide, user.UserPermissibleLimits.MaxSulphurDioxide);
 
             await _context.SaveChangesAsync();
-
-            return Ok();
+            return Ok(airQualityResponse);
         }
 
-        private void CheckAndCreateAlert(Userr user, string parameterName, double currentValue, double permissibleValue)
+        private AirQualityElement CreateAirQualityElement(double currentValue, double limit)
+        {
+            return new AirQualityElement
+            {
+                Current = currentValue,
+                Limit = limit,
+                Difference = currentValue - limit
+            };
+        }
+
+
+
+        private async Task CheckAndCreateAlert(Userr user, string parameterName, double currentValue, double permissibleValue)
         {
             if (currentValue > permissibleValue)
             {
@@ -174,9 +197,55 @@ namespace Weather.Controllers
                     CurrentParameterVal = currentValue,
                     Difference = currentValue - permissibleValue
                 };
-                _context.Alerts.Add(alert);
+
+                await _airQualityRepository.CreateAlertAsync(alert);
             }
         }
+
+
+        [HttpGet("CheckWeather/{userId}")]
+        public async Task<IActionResult> CheckWeather(int userId)
+        {
+            var user = await _context.Users.Include(u => u.UserPermissibleLimits).FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var weatherData = await _weatherRepository.GetWeatherDataAsync();
+            if (weatherData == null)
+            {
+                return StatusCode(500, "Unable to retrieve weather data.");
+            }
+
+            var weatherResponse = new WeatherResponse
+            {
+                Latitude = 52.52,
+                Longitude = 13.41,
+                Timestamp = DateTime.UtcNow,
+                Temperature = CreateWeatherElement(weatherData.Temp, user.UserPermissibleLimits.MaxTemperature),
+                Humidity = CreateWeatherElement(weatherData.Humidity, user.UserPermissibleLimits.MaxHumidity)
+            };
+
+            // Save any alerts created
+            await _context.SaveChangesAsync();
+
+            return Ok(weatherResponse);
+        }
+
+
+        private AirQualityElement CreateWeatherElement(double currentValue, double limit)
+        {
+            return new AirQualityElement
+            {
+                Current = currentValue,
+                Limit = limit,
+                Difference = currentValue - limit
+            };
+        }
+
+
+
 
 
 

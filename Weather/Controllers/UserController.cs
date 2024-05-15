@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Weather.Data;
 using Weather.Dtos.User;
 using Weather.Interfaces;
@@ -16,11 +17,13 @@ namespace Weather.Controllers
         private readonly DataContext _context;
         private readonly IUserRepository _userRepo;
         private readonly ILimitRepository _limitRepo;
-        public UserController(DataContext context, ILimitRepository limitRepo,IUserRepository userRepo)
+        private readonly IAirQualityRepository _airQualityRepository;
+        public UserController(DataContext context, ILimitRepository limitRepo,IUserRepository userRepo,IAirQualityRepository airQualityRepository)
         {
             _context = context;
             _limitRepo = limitRepo;
             _userRepo = userRepo;
+            _airQualityRepository = airQualityRepository;
 
         }
 
@@ -128,7 +131,55 @@ namespace Weather.Controllers
             return Ok(existingUser.ToUserDto());
         }
 
-        
+        [HttpGet("CheckAirQuality/{userId}")]
+        public async Task<IActionResult> CheckAirQuality(int userId)
+        {
+            var user = await _context.Users.Include(u => u.UserPermissibleLimits).FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var airQualityData = await _airQualityRepository.GetAirQualityDataAsync();
+            Console.WriteLine(JsonConvert.SerializeObject(airQualityData));
+
+            if (airQualityData == null)
+            {
+                // Handle the case where air quality data couldn't be retrieved
+                return StatusCode(500, "Unable to retrieve air quality data.");
+            }
+            // Compare and create alerts
+            CheckAndCreateAlert(user, "PM10", airQualityData.pm10, user.UserPermissibleLimits.MaxPM10);
+            CheckAndCreateAlert(user, "PM2_5", airQualityData.pm2_5, user.UserPermissibleLimits.MaxPM2_5);
+            CheckAndCreateAlert(user, "Carbon Monoxide", airQualityData.carbon_monoxide, user.UserPermissibleLimits.MaxCarbonMonoxide);
+            CheckAndCreateAlert(user, "Nitrogen Dioxide", airQualityData.nitrogen_dioxide, user.UserPermissibleLimits.MaxNitrogenDioxide);
+            CheckAndCreateAlert(user, "Sulphur Dioxide", airQualityData.sulphur_dioxide, user.UserPermissibleLimits.MaxSulphurDioxide);
+            CheckAndCreateAlert(user, "Ozone", airQualityData.ozone, user.UserPermissibleLimits.MaxOzone);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        private void CheckAndCreateAlert(Userr user, string parameterName, double currentValue, double permissibleValue)
+        {
+            if (currentValue > permissibleValue)
+            {
+                var alert = new Alert
+                {
+                    Country = "Egypt", // Replace with actual country if needed
+                    UserID = user.UserId,
+                    Timestamp = DateTime.UtcNow,
+                    ParameterLimit = permissibleValue,
+                    CurrentParameterVal = currentValue,
+                    Difference = currentValue - permissibleValue
+                };
+                _context.Alerts.Add(alert);
+            }
+        }
+
+
+
 
 
 

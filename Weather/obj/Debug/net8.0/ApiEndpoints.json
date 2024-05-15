@@ -16,6 +16,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Weather.Controllers.ForecastController",
+    "Method": "GetAirQualityForecast",
+    "RelativePath": "air",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Weather.Controllers.AirQualityController",
+    "Method": "GetAirQuality",
+    "RelativePath": "api/air",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Weather.Controllers.LimitsController",
     "Method": "GetAll",
     "RelativePath": "api/limit",
@@ -138,6 +158,22 @@
   },
   {
     "ContainingType": "Weather.Controllers.UserController",
+    "Method": "CheckAirQuality",
+    "RelativePath": "api/user/CheckAirQuality/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Weather.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "login",
     "HttpMethod": "POST",
@@ -166,6 +202,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Weather.Controllers.ForecastController",
+    "Method": "GetTempAndHumdidity",
+    "RelativePath": "weather",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

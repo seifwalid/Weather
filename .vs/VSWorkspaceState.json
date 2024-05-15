@@ -5,7 +5,9 @@
     "\\Weather\\Controllers",
     "\\Weather\\Dtos",
     "\\Weather\\Dtos\\User",
-    "\\Weather\\Mappers"
+    "\\Weather\\Mappers",
+    "\\Weather\\Model",
+    "\\Weather\\Repository"
   ],
   "SelectedNode": "\\Weather.sln",
   "PreviewInSolutionExplorer": false
